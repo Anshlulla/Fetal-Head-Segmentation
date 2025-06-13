@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fetal Head Segmentation</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link href="{{ url_for('static', filename='uploads/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='uploads/css/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='uploads/css/templatemo-topic-listing.css') }}" rel="stylesheet">
+</head>
+
+<body id="top">
+<main>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi-back"></i>
+                <span>Topic</span>
+            </a>
+
+            <div class="d-lg-none ms-auto me-4">
+                <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_1">Home</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_2">Browse Topics</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_3">How it works</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Contact</a></li>
+                </ul>
+
+                <div class="d-none d-lg-block">
+                    <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="site-header d-flex flex-column justify-content-center align-items-center">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <!-- Text -->
+                <div class="col-lg-5 col-12 mb-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Deep Learning</li>
+                        </ol>
+                    </nav>
+
+                    <h2 class="text-white">Deep Learning Based <br> Fetal Head Segmentation</h2>
+
+                    <div class="d-flex align-items-center mt-5">
+                        <a href="#upload-section" class="btn custom-btn custom-border-btn smoothscroll me-4">Explore Now</a>
+                        <a href="#top" class="custom-icon bi-bookmark smoothscroll"></a>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="col-lg-5 col-12 d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='uploads/images/Fetal_Head_Ultrasound.jpg') }}" class="img-fluid rounded-4" alt="Fetal Head Ultrasound" style="margin-top: -100px;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Upload Section -->
+    <section class="section-padding section-bg" id="upload-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8 col-12">
+                    <div class="p-5 bg-white rounded-4 shadow-lg">
+                        <form class="custom-form subscribe-form w-100" action="/deep-learning" method="post" enctype="multipart/form-data" role="form">
+                            <h4 class="mb-4 pb-2 text-center">Upload Ultrasound Image</h4>
+                            <input type="file" name="ultrasound-image" id="ultrasound-image" class="form-control mb-3" accept="image/*" required>
+                            <div class="col-12">
+                                <button type="submit" class="form-control">Upload</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% if original_image and segmented_image %}
+            <!-- Display Images -->
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-5 col-md-6 col-12 text-center mb-4 mb-md-0">
+                    <h5>Original Image</h5>
+                    <img src="{{ url_for('static', filename=original_image) }}" class="img-fluid rounded-4 shadow" alt="Original Image">
+                </div>
+                <div class="col-lg-5 col-md-6 col-12 text-center">
+                    <h5>Segmented Image</h5>
+                    <img src="{{ url_for('static', filename=segmented_image) }}" class="img-fluid rounded-4 shadow" alt="Segmented Image">
+                </div>
+            </div>
+
+            <!-- Measurements Table -->
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-10">
+                    <h4 class="text-center mb-3">Fetal Head Measurements</h4>
+                    <table class="table table-bordered table-striped text-center">
+                        <thead class="table-light">
+                            <tr>
+                                <th>BPD</th>
+                                <th>OFD</th>
+                                <th>Head Area (HA)</th>
+                                <th>Head Circumference (HC)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ bpd }} px</td>
+                                <td>{{ ofd }} px</td>
+                                <td>{{ ha }} px²</td>
+                                <td>{{ hc }} px</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Gestational Age -->
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-10">
+                    <h4 class="text-center mb-3">Gestational Age Estimation</h4>
+                    <p class="text-center">
+                        Estimated Gestational Age: <strong>{{ gestational_age }} weeks</strong>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Abnormality Detection Section -->
+    <section class="section-padding bg-white" id="abnormality-detection">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <!-- Text Content -->
+                <div class="col-lg-6 col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Abnormality Classification</li>
+                        </ol>
+                    </nav>
+
+                    <h2 class="mb-4">Abnormality Detection</h2>
+                    <p>This section uses a classification model to detect possible abnormalities in fetal ultrasound images. Upload an image below to begin analysis.</p>
+                </div>
+
+                <!-- Image -->
+                <div class="col-lg-6 col-12 text-center">
+                    <img src="{{ url_for('static', filename='uploads/images/abnormality_sample.jpg') }}" class="img-fluid rounded-4 shadow" alt="Abnormality Detection Sample">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- JS Files -->
+<script src="{{ url_for('static', filename='uploads/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='uploads/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='uploads/js/jquery.sticky.js') }}"></script>
+<script src="{{ url_for('static', filename='uploads/js/custom.js') }}"></script>
+</body>
+</html>

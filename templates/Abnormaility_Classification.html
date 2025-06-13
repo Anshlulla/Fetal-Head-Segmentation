@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fetal Head Segmentation</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link href="{{ url_for('static', filename='uploads/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='uploads/css/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='uploads/css/templatemo-topic-listing.css') }}" rel="stylesheet">
+</head>
+
+<body id="top">
+<main>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi-back"></i>
+                <span>Topic</span>
+            </a>
+
+            <div class="d-lg-none ms-auto me-4">
+                <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_1">Home</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_2">Browse Topics</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_3">How it works</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_4">FAQs</a></li>
+                    <li class="nav-item"><a class="nav-link click-scroll" href="#section_5">Contact</a></li>
+                </ul>
+
+                <div class="d-none d-lg-block">
+                    <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="site-header d-flex flex-column justify-content-center align-items-center">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <!-- Text -->
+                <div class="col-lg-5 col-12 mb-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Deep Learning</li>
+                        </ol>
+                    </nav>
+
+                    <h2 class="text-white">Deep Learning Based <br> Fetal Head Segmentation</h2>
+
+                    <div class="d-flex align-items-center mt-5">
+                        <a href="#upload-section" class="btn custom-btn custom-border-btn smoothscroll me-4">Explore Now</a>
+                        <a href="#top" class="custom-icon bi-bookmark smoothscroll"></a>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="col-lg-5 col-12 d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='uploads/images/Fetal_Head_Ultrasound.jpg') }}" class="img-fluid rounded-4" alt="Fetal Head Ultrasound" style="margin-top: -100px;">
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header -->
+    <header class="site-header d-flex flex-column justify-content-center align-items-center">
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <!-- Text -->
+                <div class="col-lg-5 col-12 mb-5">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Abnormality Classification</li>
+                        </ol>
+                    </nav>
+
+                    <h2 class="text-white">Abnormality Detection<br> Brain Development</h2>
+
+                    <div class="d-flex align-items-center mt-5">
+                        <a href="#upload-section" class="btn custom-btn custom-border-btn smoothscroll me-4">Explore Now</a>
+                        <a href="#top" class="custom-icon bi-bookmark smoothscroll"></a>
+                    </div>
+                </div>
+
+                <!-- Image -->
+                <div class="col-lg-5 col-12 d-flex justify-content-center">
+                    <img src="{{ url_for('static', filename='uploads/images/Fetal_Head_Ultrasound.jpg') }}" class="img-fluid rounded-4" alt="Fetal Head Ultrasound" style="margin-top: -100px;">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Upload Section -->
+<section class="section-padding section-bg" id="upload-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-12">
+                <div class="p-5 bg-white rounded-4 shadow-lg">
+                    <form class="custom-form subscribe-form w-100" action="/classification" method="post" enctype="multipart/form-data" role="form">
+                        <h4 class="mb-4 pb-2 text-center">Upload Ultrasound Image</h4>
+                        <input type="file" name="ultrasound-image" id="ultrasound-image" class="form-control mb-3" accept="image/*" required>
+                        <div class="col-12">
+                            <button type="submit" class="form-control">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if prediction %}
+    <div class="mt-5 text-center">
+        <h5 class="text-success">Prediction Result:</h5>
+        <p><strong>Predicted Class:</strong> {{ prediction.class_name }}</p>
+        <p><strong>Confidence:</strong> {{ prediction.confidence }}%</p>
+        
+        {% if prediction.image_path %}
+        <div class="mt-3">
+            <p><strong>Uploaded Image:</strong></p>
+            <img src="{{ url_for('static', filename=prediction.image_path) }}" class="img-fluid rounded-3" style="max-width: 300px;" alt="Uploaded Image">
+        </div>
+        {% endif %}
+
+        {% if prediction.segmentation_path %}
+        <div class="mt-3">
+            <p><strong>Segmented Output:</strong></p>
+            <img src="{{ url_for('static', filename=prediction.segmentation_path) }}" class="img-fluid rounded-3" style="max-width: 300px;" alt="Segmented Image">
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+           
+
+
+<!-- JS Files -->
+<script src="{{ url_for('static', filename='uploads/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='uploads/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='uploads/js/jquery.sticky.js') }}"></script>
+<script src="{{ url_for('static', filename='uploads/js/custom.js') }}"></script>
+</body>
+</html>
